@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>滚动容器组件</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3B82F6',
+            secondary: '#10B981'
+          },
+          borderRadius: {
+            'none': '0px',
+            'sm': '2px',
+            DEFAULT: '4px',
+            'md': '8px',
+            'lg': '12px',
+            'xl': '16px',
+            '2xl': '20px',
+            '3xl': '24px',
+            'full': '9999px',
+            'button': '4px'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .scbtb_custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .scbtb_custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 3px;
+    }
+    .scbtb_custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 3px;
+    }
+    .scbtb_custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+    .scbtb_scroll-container {
+      scroll-behavior: smooth;
+    }
+    .scbtb_dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .scbtb_dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: white;
+      min-width: 200px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      z-index: 1;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .scbtb_dropdown-content.show {
+      display: block;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+<div class="container mx-auto px-4 py-8">
+  <div class="flex gap-6">
+    <div class="flex-1 relative">
+      <div id="scbtb_scrollContainer" class="scbtb_scroll-container scbtb_custom-scrollbar bg-white rounded-lg shadow-lg p-6 h-[800px] overflow-y-auto">
+        <section id="scbtb_section1" class="mb-12">
+          <h2 class="text-2xl font-bold mb-4">产品介绍</h2>
+          <p class="text-gray-600 leading-relaxed">我们的产品采用最新技术，为用户提供极致体验。通过持续创新和优化，我们致力于为客户创造更多价值。产品特点包括高性能、易用性和可扩展性。</p>
+        </section>
+
+        <section id="scbtb_section2" class="mb-12">
+          <h2 class="text-2xl font-bold mb-4">功能特性</h2>
+          <div class="grid grid-cols-3 gap-6">
+            <div class="p-4 bg-gray-50 rounded-lg">
+              <h3 class="font-semibold mb-2">智能分析</h3>
+              <p class="text-sm text-gray-600">深度学习算法支持，实时数据分析</p>
+            </div>
+            <div class="p-4 bg-gray-50 rounded-lg">
+              <h3 class="font-semibold mb-2">自动化处理</h3>
+              <p class="text-sm text-gray-600">流程自动化，提高工作效率</p>
+            </div>
+            <div class="p-4 bg-gray-50 rounded-lg">
+              <h3 class="font-semibold mb-2">数据可视化</h3>
+              <p class="text-sm text-gray-600">直观展示数据，辅助决策</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="scbtb_section3" class="mb-12">
+          <h2 class="text-2xl font-bold mb-4">使用场景</h2>
+          <div class="space-y-4">
+            <div class="p-4 border border-gray-200 rounded-lg">
+              <h3 class="font-semibold mb-2">企业管理</h3>
+              <p class="text-gray-600">适用于企业内部管理、资源调配、绩效考核等场景</p>
+            </div>
+            <div class="p-4 border border-gray-200 rounded-lg">
+              <h3 class="font-semibold mb-2">数据分析</h3>
+              <p class="text-gray-600">支持大规模数据处理、统计分析、报表生成等需求</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="scbtb_section4" class="mb-12">
+          <h2 class="text-2xl font-bold mb-4">客户案例</h2>
+          <div class="grid grid-cols-2 gap-6">
+            <div class="p-6 bg-gray-50 rounded-lg">
+              <h3 class="font-semibold mb-2">某科技公司</h3>
+              <p class="text-gray-600">通过使用我们的产品，显著提升了工作效率，节省了30%的人力成本</p>
+            </div>
+            <div class="p-6 bg-gray-50 rounded-lg">
+              <h3 class="font-semibold mb-2">某金融机构</h3>
+              <p class="text-gray-600">实现了业务流程的自动化，大幅提升了客户满意度</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="scbtb_section5" class="mb-12">
+          <h2 class="text-2xl font-bold mb-4">技术支持</h2>
+          <div class="space-y-4">
+            <p class="text-gray-600">我们提供全方位的技术支持服务，包括：</p>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>7×24小时在线支持</li>
+              <li>专业技术团队</li>
+              <li>定期培训与指导</li>
+              <li>问题快速响应</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <button id="scbtb_backToTop" class="hidden fixed bottom-8 right-8 bg-primary bg-opacity-80 text-white p-3 rounded-full shadow-lg hover:bg-opacity-100 transition-all duration-300">
+        <i class="fas fa-arrow-up flex justify-center items-center w-6 h-6"></i>
+      </button>
+    </div>
+    <div class="w-64">
+      <div class="scbtb_dropdown w-full">
+        <button class="w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded-button flex items-center justify-between whitespace-nowrap">
+          <span>选择章节</span>
+          <i class="fas fa-chevron-down flex justify-center items-center w-4 h-4"></i>
+        </button>
+        <div class="scbtb_dropdown-content w-full mt-1 rounded-lg">
+          <div class="py-1" id="scbtb_dropdownLinks">
+            <!-- Links will be generated here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const scbtb_scrollContainer = document.getElementById('scbtb_scrollContainer');
+    const scbtb_backToTopButton = document.getElementById('scbtb_backToTop');
+    const scbtb_dropdownButton = document.querySelector('.scbtb_dropdown button');
+    const scbtb_dropdownContent = document.querySelector('.scbtb_dropdown-content');
+    const scbtb_dropdownLinksContainer = document.getElementById('scbtb_dropdownLinks');
+
+    // Generate dropdown links based on sections
+    const scbtb_sections = scbtb_scrollContainer.querySelectorAll('section');
+    scbtb_sections.forEach(section => {
+      const sectionId = section.id;
+      const sectionTitle = section.querySelector('h2').innerText;
+      const link = document.createElement('a');
+      link.href = `#${sectionId}`;
+      link.className = 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100';
+      link.innerText = sectionTitle;
+      scbtb_dropdownLinksContainer.appendChild(link);
+    });
+
+    scbtb_scrollContainer.addEventListener('scroll', function() {
+      if (scbtb_scrollContainer.scrollTop > 300) {
+        scbtb_backToTopButton.classList.remove('hidden');
+      } else {
+        scbtb_backToTopButton.classList.add('hidden');
+      }
+    });
+
+    scbtb_backToTopButton.addEventListener('click', function() {
+      scbtb_scrollContainer.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    scbtb_dropdownButton.addEventListener('click', function() {
+      scbtb_dropdownContent.classList.toggle('show');
+    });
+
+    document.addEventListener('click', function(event) {
+      if (!scbtb_dropdownButton.contains(event.target) && !scbtb_dropdownContent.contains(event.target)) {
+        scbtb_dropdownContent.classList.remove('show');
+      }
+    });
+
+    const links = scbtb_dropdownLinksContainer.querySelectorAll('a');
+    links.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        scbtb_scrollContainer.scrollTo({
+          top: targetElement.offsetTop - 20,
+          behavior: 'smooth'
+        });
+        scbtb_dropdownContent.classList.remove('show');
+      });
+    });
+  });
+</script>
+</body>
+</html>
