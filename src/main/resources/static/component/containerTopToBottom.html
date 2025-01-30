@@ -1,0 +1,140 @@
+<html lang="en-us">
+
+<comment style="visibility: hidden">
+    {
+        "to_human": "this is a container",
+        "component_name": "container-top-to-bottom",
+        "importParams": [
+            {
+                "name": "top",
+                "type": "slot",
+                "require": "any",
+                "comment": "top content"
+            },
+            {
+                "name": "middle",
+                "type": "slot",
+                "require": "any",
+                "comment": "middle content"
+            },
+            {
+                "name": "bottom",
+                "type": "slot",
+                "require": "any",
+                "comment": "bottom content"
+            }
+        ]
+    }
+</comment>
+
+<!-- example !-->
+
+<comment name="importParams" id="containerTopToBottomImportParams" index="0" style="visibility: hidden">
+    {
+    "top_component_name": "p",
+    "middle_component_name": "p",
+    "bottom_component_name": "p",
+    "top_component_index": 0,
+    "middle_component_index": 0,
+    "bottom_component_index": 0
+    }
+</comment>
+
+<comment name="importParams" id="containerTopToBottomImportParams" index="1" style="visibility: hidden">
+    {
+    "top_component_name": "Top Component 1",
+    "middle_component_name": "Middle Component 1",
+    "bottom_component_name": "Bottom Component 1",
+    "top_component_index": 1,
+    "middle_component_index": 1,
+    "bottom_component_index": 1
+    }
+</comment>
+
+<template id="containerTopToBottomTemplate">
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 300px;
+            width: 200px;
+            border: 1px solid black;
+        }
+        .top, .middle, .bottom {
+            flex: 1;
+            border: 1px solid black;
+            margin: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+    <div class="container">
+        <div class="top">Top</div>
+        <div class="middle">Middle</div>
+        <div class="bottom">Bottom</div>
+    </div>
+    <button id="moveButton">Move Containers</button>
+</template>
+
+<script id="src">
+    class ContainerTopToBottom extends HTMLElement {
+        constructor() {
+            super();
+            const template = document.getElementById('containerTopToBottomTemplate').content;
+            this.attachShadow({ mode: 'open' }).appendChild(template.cloneNode(true));
+
+            // 获取子容器
+            this.top = this.shadowRoot.querySelector('.top');
+            this.middle = this.shadowRoot.querySelector('.middle');
+            this.bottom = this.shadowRoot.querySelector('.bottom');
+
+            // 获取按钮并添加事件监听器
+            this.moveButton = this.shadowRoot.querySelector('#moveButton');
+            this.moveButton.addEventListener('click', () => this.moveContainers());
+
+
+        }
+
+        // 定义一个方法来移动子容器的位置
+        moveContainers() {
+            const temp = this.top.cloneNode(true);
+            this.top.replaceWith(this.bottom.cloneNode(true));
+            this.bottom.replaceWith(this.middle.cloneNode(true));
+            this.middle.replaceWith(temp);
+
+            // 重新获取子容器引用
+            this.top = this.shadowRoot.querySelector('.top');
+            this.middle = this.shadowRoot.querySelector('.middle');
+            this.bottom = this.shadowRoot.querySelector('.bottom');
+        }
+        connectedCallback() {
+            // 获取 index 属性
+            const index = this.getAttribute('index');
+            this.loadParams(index);
+        }
+        // 定义一个方法来加载参数
+        loadParams(index) {
+            const importParams = document.querySelector(`comment[name="importParams"][index="${index}"]`);
+            if (importParams) {
+                const params = JSON.parse(importParams.textContent);
+                console.log('Loaded params:', params);
+
+                // 根据加载的参数设置内容
+                // 根据加载的参数设置内容
+                this.top.innerHTML = `<${params.top_component_name} index="${params.top_component_index}"> hello </${params.top_component_name}>`;
+                this.middle.innerHTML = `<${params.middle_component_name} index="${params.middle_component_index}"> hello2</${params.middle_component_name}>`;
+                this.bottom.innerHTML = `<${params.bottom_component_name} index="${params.bottom_component_index}">hello3</${params.bottom_component_name}>`;
+            } else {
+                console.error('No params found for index:', index);
+            }
+        }
+    }
+
+    // 定义自定义元素
+    customElements.define('container-top-to-bottom', ContainerTopToBottom);
+</script>
+<container-top-to-bottom index=1></container-top-to-bottom>
+<container-top-to-bottom index=0></container-top-to-bottom>
+</html>
+
